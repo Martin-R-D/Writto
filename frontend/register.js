@@ -1,8 +1,16 @@
 
 async function registerUser(e) {
+    e.preventDefault();
     const username = document.getElementsByClassName('inputForm')[0].value;
     const password = document.getElementsByClassName('inputForm')[1].value; 
-    e.preventDefault();
+    if (username.trim() == '') {
+        alert("Please enter username!");
+        return;
+    } 
+    if(password.trim() == '') {
+        alert('Please enter password!');
+        return;
+    }
     try {
         const response = await fetch('http://127.0.0.1:8000/api/register/', {
             method: 'POST',
