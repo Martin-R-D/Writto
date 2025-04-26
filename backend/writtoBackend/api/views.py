@@ -14,11 +14,9 @@ class RegistrationView(APIView):
     
 class LoginView(APIView):
     def post(self, request):
-        print(request.data)
         username = request.data.get('username')
         password = request.data.get('password') 
         currentUser = authenticate(username=username, password=password)   
-        print(currentUser)
         if currentUser is not None:
             return Response({'response':'Logged in'}, status=200)
         return Response({'response':'Invalid username or password'}, status=400)
