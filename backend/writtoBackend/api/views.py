@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response 
 from .serializers import RegistrationSerializer
 
+
 class RegistrationView(APIView):    
     def post(self, request):    
         serializer = RegistrationSerializer(data=request.data)
@@ -18,6 +19,6 @@ class LoginView(APIView):
         password = request.data.get('password') 
         currentUser = authenticate(username=username, password=password)   
         print(currentUser)
-        if currentUser and currentUser.is_authenticated:
+        if currentUser is not None:
             return Response({'response':'Logged in'}, status=200)
         return Response({'response':'Invalid username or password'}, status=400)
