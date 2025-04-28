@@ -1,9 +1,11 @@
 
 
 function Friends() {
-    <>
-    <h1>Friends</h1>
-    </>
+    return (
+        <>
+        <h1>Friends</h1>
+        </>
+    )
 }
 
 export default Friends
