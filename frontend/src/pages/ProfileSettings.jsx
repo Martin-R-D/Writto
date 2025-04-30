@@ -1,10 +1,12 @@
 import { useState } from "react"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 function ProfileSettings({loggedUser}) {
     const [userPosts, setUserPosts] = useState([]);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const navigate = useNavigate();
 
     async function createPost(title, content) {
         const response = await axios.post('http://127.0.0.1:8000/api/posts/', {title, content, loggedUser});
@@ -15,6 +17,13 @@ function ProfileSettings({loggedUser}) {
             alert(err);
         }
     }
+
+
+    function logOut() {
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
+
     return (
         <>
             <h1>Your posts: </h1>
@@ -39,6 +48,7 @@ function ProfileSettings({loggedUser}) {
                 <input id="content" type="text" value={content} onChange={(e) => setContent(e.target.value)}/>
                 <button type="submit">Submit</button>
             </form>
+            <button onClick={logOut}>Log out</button>
         </>
     )
 }

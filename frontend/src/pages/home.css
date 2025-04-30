@@ -9,18 +9,18 @@ nav {
     flex-direction: column;
     padding-top: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  }
+}
   
-  .navElements {
+.navElements {
     width: 100%;
     padding: 15px;
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-sizing: border-box;
-  }
-  
-  .navElements:hover {
-    background-color: #ddd;
-  }
-  
+}
+
+.navElements:hover {
+  background-color: #f0f0f0 !important;
+
+}

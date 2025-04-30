@@ -5,8 +5,9 @@ import Inbox from "./Inbox";
 import ProfileSettings from "./ProfileSettings";
 import { useState } from "react";
 import './home.css'
-function Home({isLoggedIn, loggedUser}) {
 
+function Home() {
+    const isLoggedIn = localStorage.getItem('token');
     const [page, setPage] = useState(1);
 
     if (!isLoggedIn) return (
