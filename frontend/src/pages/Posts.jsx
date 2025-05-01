@@ -33,7 +33,6 @@ function Posts() {
             {posts.map((post) => {
                 return (
                     <div className="post" key={post.id}>
-                        <button className='delete'>X</button>
                         <h4 className="authorName">Author: {post.author}</h4>
                         <h2 className="postTitle">{post.title}</h2>
                         <p className="postContent">{post.content}</p>
