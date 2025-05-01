@@ -53,7 +53,7 @@ function ProfileSettings() {
                 <div id='yourPosts'>
                     {userPosts.map((post) => {
                         return (
-                            <div className="post">
+                            <div className="post" key={post.id}>
                                 <button className='delete'>X</button>
                                 <h4 className="authorName">Author: {post.author}</h4>
                                 <h2 className="postTitle">{post.title}</h2>
@@ -71,9 +71,9 @@ function ProfileSettings() {
                 createPost(title, content);
             }}>
                 <h2>New Post</h2>
-                <label for="title">Title</label>
+                <label htmlFor="title">Title</label>
                 <input id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                <label for="content">Content</label>
+                <label htmlFor="content">Content</label>
                 <input id="content" type="text" value={content} onChange={(e) => setContent(e.target.value)}/>
                 <button type="submit">Submit</button>
             </form>

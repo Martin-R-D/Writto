@@ -7,11 +7,11 @@ function Friends() {
     }
     return (
         <>
-        <form onSumblit={(e) => {
+        <form onSubmit={(e) => {
             e.preventDefault()
             
             }}>
-         <label for='search'>Look for a user</label>
+         <label htmlFor='search'>Look for a user</label>
          <input id='search' type='text' value={search} onChange={(e) => setSearch(e.target.value)}/>
          <button type='submit'>Search</button>
          </form>
