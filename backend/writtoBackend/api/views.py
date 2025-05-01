@@ -24,9 +24,16 @@ class RegistrationView(APIView):
 #         return Response({'response':'Invalid username or password'}, status=400)
 
 class PostsView(viewsets.ModelViewSet):
-    queryset = Posts.objects.all()
     serializer_class = PostsSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        exclude_user = self.request.query_params.get('exclude_user', None)
+
+        if exclude_user is not None:
+            return Posts.objects.exclude(author=user)
+        return Posts.objects.filter(author=user)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

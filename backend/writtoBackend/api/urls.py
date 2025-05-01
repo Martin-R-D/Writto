@@ -4,7 +4,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from .views import RegistrationView, PostsView
 
 router = routers.DefaultRouter()
-router.register('posts', PostsView)
+router.register('posts', PostsView, basename='post')
 
 urlpatterns = [
     path('register/', RegistrationView.as_view()),
