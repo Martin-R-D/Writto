@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response 
-from .serializers import RegistrationSerializer
-
+from .serializers import RegistrationSerializer, PostsSerializer
+from rest_framework import viewsets
+from .models import Posts
+from rest_framework.permissions import IsAuthenticated
 
 class RegistrationView(APIView):    
     def post(self, request):    
@@ -12,11 +14,19 @@ class RegistrationView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
     
-class LoginView(APIView):
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password') 
-        currentUser = authenticate(username=username, password=password)   
-        if currentUser is not None:
-            return Response({'response':'Logged in'}, status=200)
-        return Response({'response':'Invalid username or password'}, status=400)
+# class LoginView(APIView):
+#     def post(self, request):
+#         username = request.data.get('username')
+#         password = request.data.get('password') 
+#         currentUser = authenticate(username=username, password=password)   
+#         if currentUser is not None:
+#             return Response({'response':'Logged in'}, status=200)
+#         return Response({'response':'Invalid username or password'}, status=400)
+
+class PostsView(viewsets.ModelViewSet):
+    queryset = Posts.objects.all()
+    serializer_class = PostsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

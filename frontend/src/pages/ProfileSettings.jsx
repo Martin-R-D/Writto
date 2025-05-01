@@ -2,17 +2,23 @@ import { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
-function ProfileSettings({loggedUser}) {
+function ProfileSettings() {
     const [userPosts, setUserPosts] = useState([]);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
 
     async function createPost(title, content) {
-        const response = await axios.post('http://127.0.0.1:8000/api/posts/', {title, content, loggedUser});
+        if(title.trim() === '' || content.trim() === '') return;
         try {
-            if(response.status === 201) setUserPosts([...userPosts, response.data]);
-            else throw new Error(response.data);
+            const response = await axios.post('http://127.0.0.1:8000/api/posts/', {title, content}, {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+                if(response.status === 201) setUserPosts([...userPosts, response.data]);
+                else throw new Error(response.data);
         } catch(err) {
             alert(err);
         }
@@ -30,16 +36,21 @@ function ProfileSettings({loggedUser}) {
                 <div>
                     {userPosts.map((post) => {
                         return (
-                            <div>
-                                <h2>{post.title}</h2>
-                                <p>{post.content}</p>
+                            <div className="post">
+                                <h4 className="authorName">{post.author}</h4>
+                                <h2 className="postTitle">{post.title}</h2>
+                                <p className="postContent">{post.content}</p>
+                                <div className="postLikes">
+                                    <button>Like</button>
+                                    <p>Likes: {post.likes}</p>
+                                </div>
                             </div>
                         )
                     })}   
                 </div>
             <form onSubmit={(e) => {
                 e.preventDefault()
-                createPost(title, content, loggedUser);
+                createPost(title, content);
             }}>
                 <h2>New Post</h2>
                 <label for="title">Title</label>
