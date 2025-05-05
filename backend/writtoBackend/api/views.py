@@ -39,3 +39,20 @@ class PostsView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+class GetUserData(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({'username': request.user.username}, status=200)
+
+class LikePost(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        post_id = request.data.get('post_id')
+        post = Posts.objects.get(id=post_id)
+        post.likes += 1
+        post.save()
+        return Response({'response':'Post liked'}, status=200)

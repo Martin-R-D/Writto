@@ -24,6 +24,20 @@ function Posts() {
         }
     }
 
+    async function likePost(post_id) {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/like-post/', {post_id}, {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            if(response.status === 200) fetchPosts();
+            else throw new Error(response.data);
+        } catch(err) {
+            alert(err);
+        }
+    }
+
     useEffect(() => {
         fetchPosts();
     }, []);
@@ -37,7 +51,7 @@ function Posts() {
                         <h2 className="postTitle">{post.title}</h2>
                         <p className="postContent">{post.content}</p>
                         <div className="postLikes">
-                            <button onClick={() => alert('You cannot like your own post')}>Like</button>
+                            <button onClick={() => likePost(post.id)}>Like</button>
                             <p>Likes: {post.likes}</p>
                         </div>
                     </div>

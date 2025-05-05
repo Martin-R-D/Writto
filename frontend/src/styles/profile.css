@@ -120,3 +120,12 @@ input:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(81, 166, 255, 0.5);
 }
+
+#usernameHeader {
+    font-size: 300%;
+    font-weight: bold;
+    color: #0066cc;
+    margin-left: 21%;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
