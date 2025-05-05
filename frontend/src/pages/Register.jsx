@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
-
+import '../styles/register.css'
 function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

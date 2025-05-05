@@ -4,7 +4,7 @@ import Friends from "./Friends";
 import Inbox from "./Inbox";
 import ProfileSettings from "./ProfileSettings";
 import { useState } from "react";
-import './home.css'
+import '../styles/home.css'
 
 function Home() {
     const isLoggedIn = localStorage.getItem('token');

@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class RegistrationView(APIView):    
     permission_classes = [AllowAny]
-    
+
     def post(self, request):    
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
