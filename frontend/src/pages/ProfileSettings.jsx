@@ -54,6 +54,20 @@ function ProfileSettings() {
     }
 
 
+    async function deletePost(post_id) {
+        try {
+            const response = await axios.delete(`http://127.0.0.1:8000/api/posts/${post_id}/`, {
+                headers: {
+                    'Authorization' : `Token ${token}`
+                }
+            });
+            if (response.status === 204) getUserPosts();
+            else throw new Error(response.data);
+        } catch(err) {
+            alert(err);
+        }
+    }
+
     function logOut() {
         localStorage.removeItem('token');
         navigate('/login');
@@ -70,7 +84,7 @@ function ProfileSettings() {
                     {userPosts.map((post) => {
                         return (
                             <div className="post" key={post.id}>
-                                <button className='delete'>X</button>
+                                <button className='delete' onClick={() => deletePost(post.id)}>X</button>
                                 <h4 className="authorName">Author: {post.author}</h4>
                                 <h2 className="postTitle">{post.title}</h2>
                                 <p className="postContent">{post.content}</p>
