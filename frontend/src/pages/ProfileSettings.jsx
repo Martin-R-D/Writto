@@ -63,7 +63,7 @@ function ProfileSettings() {
         getUserPosts();
     }, []);
     return (
-        <>        
+        <div id='profilePage'>        
             <h1 id='usernameHeader'>Hello, {username}</h1>
             <h1 id='yourPostsHeader'>Your posts: </h1>
                 <div id='yourPosts'>
@@ -94,7 +94,7 @@ function ProfileSettings() {
                 <button type="submit">Submit</button>
             </form>
             <button id='logout' onClick={logOut}>Log out</button>
-        </>
+        </div>
     )
 }
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import '../styles/posts.css'
 
 
 function Posts() {
@@ -43,7 +43,7 @@ function Posts() {
     }, []);
 
     return (
-        <>
+        <div id='postsPage'>
             {posts.map((post) => {
                 return (
                     <div className="post" key={post.id}>
@@ -57,7 +57,7 @@ function Posts() {
                     </div>
                 )
             })}
-        </>
+        </div>
     )
 }
 
