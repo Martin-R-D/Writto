@@ -24,14 +24,18 @@ function Posts() {
         }
     }
 
-    async function likePost(post_id) {
+    async function likePost(e, post_id) {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/like-post/', {post_id}, {
                 headers: {
                     'Authorization': `Token ${token}`
                 }
             });
-            if(response.status === 200) fetchPosts();
+            if(response.status === 200) {
+                if(response.data.action === 'like') e.target.src = '../images/redheart.png';
+                else e.target.src = '../images/heart.png';
+                fetchPosts();
+            }
             else throw new Error(response.data);
         } catch(err) {
             alert(err);
@@ -51,8 +55,8 @@ function Posts() {
                         <h2 className="postTitle">{post.title}</h2>
                         <p className="postContent">{post.content}</p>
                         <div className="postLikes">
-                            <button onClick={() => likePost(post.id)}>Like</button>
-                            <p>Likes: {post.likes}</p>
+                            <img class = 'heart' src='../images/heart.png' onClick={(e) => likePost(e, post.id)}/>
+                            <p>{post.likes}</p>
                         </div>
                     </div>
                 )

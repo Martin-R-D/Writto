@@ -89,8 +89,8 @@ function ProfileSettings() {
                                 <h2 className="postTitle">{post.title}</h2>
                                 <p className="postContent">{post.content}</p>
                                 <div className="postLikes">
-                                    <button onClick={() => alert('You cannot like your own post')}>Like</button>
-                                    <p>Likes: {post.likes}</p>
+                                    <img class = 'heart' src='../images/heart.png' onClick={() => alert('You can not like your post')}/>
+                                    <p>{post.likes}</p>
                                 </div>
                             </div>
                         )

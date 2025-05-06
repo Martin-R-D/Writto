@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response 
-from .serializers import RegistrationSerializer, PostsSerializer
+from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer
 from rest_framework import viewsets
-from .models import Posts
+from .models import Posts, PostsLikes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+
 
 class RegistrationView(APIView):    
     permission_classes = [AllowAny]
@@ -51,8 +52,21 @@ class LikePost(APIView):
     permission_classes = [IsAuthenticated]
     
     def post(self, request):
-        post_id = request.data.get('post_id')
-        post = Posts.objects.get(id=post_id)
-        post.likes += 1
-        post.save()
-        return Response({'response':'Post liked'}, status=200)
+        currentId = request.data.get('post_id')
+        post = Posts.objects.filter(id=currentId).first()
+        user = request.user
+        isLiked = PostsLikes.objects.filter(post=post, user=user).first()
+        if isLiked is not None:
+            post.likes -= 1
+            post.save()
+            isLiked.delete()
+            return Response({'action':'unlike'}, status=200)
+        
+        serializer = PostsLikesSerializer(data={'post': post.id, 'user': user.id})
+        if serializer.is_valid():
+            serializer.save()
+            post.likes += 1
+            post.save()
+            return Response({'action':'like'}, status=200)
+        
+        return Response(serializer.data, status=400)

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Posts
+from .models import Posts, PostsLikes
 
 class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,6 +17,11 @@ class PostsSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     class Meta:
         model = Posts
+        fields = '__all__'
+
+class PostsLikesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostsLikes
         fields = '__all__'
 
         
