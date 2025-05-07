@@ -47,21 +47,27 @@ function Posts() {
     }, []);
 
     return (
-        <div id='postsPage'>
+        <>
+            <div id='optionsDiv'>
+                <h2>For you</h2>
+                <h2>Liked</h2>
+            </div>
+            <div id='posts'>
             {posts.map((post) => {
                 return (
-                    <div className="post" key={post.id}>
-                        <h4 className="authorName">Author: {post.author}</h4>
-                        <h2 className="postTitle">{post.title}</h2>
-                        <p className="postContent">{post.content}</p>
-                        <div className="postLikes">
-                            <img class = 'heart' src='../images/heart.png' onClick={(e) => likePost(e, post.id)}/>
+                    <div className="postPostPage" key={post.id}>
+                        <h4 className="authorNamePostPage">Author: {post.author}</h4>
+                        <h2 className="postTitlePostPage">{post.title}</h2>
+                        <p className="postContentPostPage">{post.content}</p>
+                        <div className="postLikesPostPage">
+                            <img class = 'heartPostPage' src='../images/heart.png' onClick={(e) => likePost(e, post.id)}/>
                             <p>{post.likes}</p>
                         </div>
                     </div>
                 )
             })}
-        </div>
+            </div>
+        </>
     )
 }
 

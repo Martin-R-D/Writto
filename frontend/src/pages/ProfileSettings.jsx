@@ -96,16 +96,16 @@ function ProfileSettings() {
                         )
                     })}   
                 </div>
-            <form onSubmit={(e) => {
+            <form id='profileForm' onSubmit={(e) => {
                 e.preventDefault()
                 createPost(title, content);
             }}>
-                <h2>New Post</h2>
+                <h2 id='newPostHeading'>New Post</h2>
                 <label htmlFor="title">Title</label>
-                <input id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <input id="title" type="text" value={title} autoComplete='off' onChange={(e) => setTitle(e.target.value)}/>
                 <label htmlFor="content">Content</label>
-                <input id="content" type="text" value={content} onChange={(e) => setContent(e.target.value)}/>
-                <button type="submit">Submit</button>
+                <input id="content" type="text" value={content} autoComplete='off' onChange={(e) => setContent(e.target.value)}/>
+                <button type="submit" id='createPost'>Submit</button>
             </form>
             <button id='logout' onClick={logOut}>Log out</button>
         </div>

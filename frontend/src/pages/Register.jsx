@@ -20,7 +20,7 @@ function Register() {
     }
     return (
         <>
-            <form onSubmit={(e) => {
+            <form id='registerForm'onSubmit={(e) => {
                 e.preventDefault();
                 registerUser(username, password);
             }}>
@@ -28,7 +28,7 @@ function Register() {
                 <input className="input" name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="off"/>
                 <label className="label" htmlFor='password'>Password</label>
                 <input className='input' name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <p>Already have an account? <Link to="/login">Login</Link></p>
+                <p id='haveAccount'>Already have an account? <Link to="/login">Login</Link></p>
                 <button id='register'>Register</button>
             </form>
         </>

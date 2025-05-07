@@ -27,7 +27,7 @@ function Login() {
 
     return (
         <>
-            <form onSubmit={(e) => {
+            <form id='loginForm'onSubmit={(e) => {
                 e.preventDefault();
                 loginUser(username, password);
             }}>
@@ -35,7 +35,7 @@ function Login() {
                 <input className="input" name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} autoComplete='off'/>
                 <label className="label" htmlFor='password'>Password</label>
                 <input className='input' name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <p>Don't have an account? <Link to="/register">Register</Link></p>
+                <p id='dontHaveAccount'>Don't have an account? <Link to="/register">Register</Link></p>
                 <button type='submit' id='login'>Login</button>
             </form>
         </>
