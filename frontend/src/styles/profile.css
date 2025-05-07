@@ -99,32 +99,60 @@ form {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(81, 166, 255, 0.3);
     margin-top: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-input {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 8px;
-    border: 1px solid #51a6ff;
-    border-radius: 5px;
-    background-color: #f0f8ff;
-    color: #333333;
-}
-
-input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(81, 166, 255, 0.5);
-}
-
-#usernameHeader {
-    font-size: 300%;
-    font-weight: bold;
-    color: #0066cc;
-    margin-top: 50px;
+form h2 {
+    text-align: center;
     margin-bottom: 20px;
+    color: #0066cc;
 }
+
+form label {
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    display: block;
+}
+
+form button[type="submit"] {
+    background-color: #51a6ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #007bff;
+    transform: scale(1.03);
+}
+
+#logout {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease;
+}
+
+#logout:hover {
+    background-color: #f5b5b8;
+}
+
 
 .heart {
     width: 10%;
