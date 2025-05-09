@@ -5,6 +5,8 @@ import '../styles/posts.css'
 
 function Posts() {
     const [posts, setPosts] = useState([]);
+    const [likedPosts, setLikedPosts] = useState([]);
+    const [pageSeleted, setPageSelected] = useState('foryou');
     const token = localStorage.getItem('token');
 
     async function fetchPosts() {
@@ -18,6 +20,18 @@ function Posts() {
                 }
             });
             if(response.status === 200) setPosts(response.data);
+            else throw new Error(response.data);
+        } catch(err) {
+            alert(err);
+        }
+
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/likedPosts/', {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            })
+            if(response.status === 200) setLikedPosts(response.data.posts);
             else throw new Error(response.data);
         } catch(err) {
             alert(err);
@@ -46,14 +60,24 @@ function Posts() {
         fetchPosts();
     }, []);
 
+    function showForYou() {
+        setPageSelected('foryou');
+    }
+
+    function showLiked() {
+        setPageSelected('liked');
+    }
+
     return (
         <>
             <div id='optionsDiv'>
-                <h2>For you</h2>
-                <h2>Liked</h2>
+                <h2 onClick={() => showForYou()}>For you</h2>
+                <h2 onClick={() => showLiked()}>Liked</h2>
             </div>
             <div id='posts'>
             {posts.map((post) => {
+                if(pageSeleted === 'foryou' && likedPosts.includes(post.id)) return null;
+                if(pageSeleted === 'liked' && !likedPosts.includes(post.id)) return null;
                 return (
                     <div className="postPostPage" key={post.id}>
                         <h4 className="authorNamePostPage">Author: {post.author}</h4>
