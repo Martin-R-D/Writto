@@ -8,7 +8,7 @@ function Posts() {
     const token = localStorage.getItem('token');
     const [likedPosts, setLikedPosts] = useState([]); 
     const [showCommentsSection, setShowCommentsSection] = useState(false);
-
+    const [commentsOpenedId, setCommentsOpenedId] = useState();
     async function fetchPosts() {
         try {
             const response = await axios.get('http://127.0.0.1:8000/api/posts/', {
@@ -84,6 +84,7 @@ function Posts() {
         }
         e.target.src = '../images/commentsFilled.png';
         setShowCommentsSection(true);
+        setCommentsOpenedId(post_id);
     }
 
     return (
