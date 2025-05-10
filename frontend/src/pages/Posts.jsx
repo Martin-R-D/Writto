@@ -6,6 +6,7 @@ import '../styles/posts.css'
 function Posts() {
     const [posts, setPosts] = useState([]);
     const token = localStorage.getItem('token');
+    const [likedPosts, setLikedPosts] = useState([]); 
 
     async function fetchPosts() {
         try {
@@ -22,6 +23,22 @@ function Posts() {
         } catch(err) {
             alert(err);
         }
+
+        fetchLikedPosts();
+    }
+    
+    async function fetchLikedPosts() {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/liked-posts/', {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            if(response.status === 200) setLikedPosts(response.data.postIds);
+            else throw new Error(response.data);
+        } catch(err) {
+            alert(err);
+        }
     }
 
     async function likePost(e, post_id) {
@@ -32,15 +49,23 @@ function Posts() {
                 }
             });
             if(response.status === 200) {
-                if(response.data.action === 'like') e.target.src = '../images/redheart.png';
-                else e.target.src = '../images/heart.png';
-                fetchPosts();
+                if(response.data.action === 'like') {
+                    e.target.src = '../images/redheart.png';
+                    document.getElementById(post_id).innerHTML = parseInt(document.getElementById(post_id).innerHTML) + 1;
+                }
+                else {
+                    e.target.src = '../images/heart.png';
+                    document.getElementById(post_id).innerHTML = parseInt(document.getElementById(post_id).innerHTML) - 1;
+                }
             }
             else throw new Error(response.data);
         } catch(err) {
             alert(err);
         }
+
+        fetchLikedPosts();
     }
+    
 
     useEffect(() => {
         fetchPosts();
@@ -50,7 +75,6 @@ function Posts() {
         <>
             <div id='optionsDiv'>
                 <h2>For you</h2>
-                <h2>Liked</h2>
             </div>
             <div id='posts'>
             {posts.map((post) => {
@@ -60,8 +84,8 @@ function Posts() {
                         <h2 className="postTitlePostPage">{post.title}</h2>
                         <p className="postContentPostPage">{post.content}</p>
                         <div className="postLikesPostPage">
-                            <img class = 'heartPostPage' src='../images/heart.png' onClick={(e) => likePost(e, post.id)}/>
-                            <p>{post.likes}</p>
+                            <img class = 'heartPostPage' src={likedPosts.includes(post.id) ? '../images/redheart.png' : '../images/heart.png'} onClick={(e) => likePost(e, post.id)}/>
+                            <p id={post.id}>{post.likes}</p>
                         </div>
                     </div>
                 )

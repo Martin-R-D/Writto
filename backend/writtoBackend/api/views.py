@@ -70,3 +70,12 @@ class LikePost(APIView):
             return Response({'action':'like'}, status=200)
         
         return Response(serializer.data, status=400)
+    
+
+class LikedPostsIds(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        likedPosts = PostsLikes.objects.filter(user=user).values_list('post', flat=True)
+        return Response({'postIds': list(likedPosts)}, status=200)
