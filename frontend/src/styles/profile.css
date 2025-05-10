@@ -71,6 +71,13 @@
     margin-top: 10px;
 }
 
+
+.comments {
+    width: 10%;
+    height: 10%;
+    cursor: pointer;
+}
+
 button {
     background-color: #51a6ff;
     color: white;

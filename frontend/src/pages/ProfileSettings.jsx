@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import axios from "axios"
+import axios, { all } from "axios"
 import { useNavigate } from "react-router-dom"
 import '../styles/profile.css'
 function ProfileSettings() {
@@ -76,6 +76,14 @@ function ProfileSettings() {
         getUser();
         getUserPosts();
     }, []);
+
+    function openComments(e, post_id) {
+        const allCommentButtons = document.getElementsByClassName('comments');
+        for(let i = 0; i < allCommentButtons.length; i++) {
+            allCommentButtons[i].src = '../images/comments.png';   
+        }
+        e.target.src = '../images/commentsFilled.png';
+    }
     return (
         <div id='profilePage'>        
             <h1 id='usernameHeader'>Hello, {username}</h1>
@@ -92,6 +100,7 @@ function ProfileSettings() {
                                     <img className = 'heart' src='../images/heart.png' onClick={() => alert('You can not like your post')}/>
                                     <p>{post.likes}</p>
                                 </div>
+                                <img className = 'comments' id ={`comments${post.id}`} src='../images/comments.png' onClick={(e) => openComments(e, post.id)}/>
                             </div>
                         )
                     })}   
