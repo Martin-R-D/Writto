@@ -7,6 +7,7 @@ function Posts() {
     const [posts, setPosts] = useState([]);
     const token = localStorage.getItem('token');
     const [likedPosts, setLikedPosts] = useState([]); 
+    const [showCommentsSection, setShowCommentsSection] = useState(false);
 
     async function fetchPosts() {
         try {
@@ -73,6 +74,7 @@ function Posts() {
 
     function openComments(e, post_id) {
         if (e.target.src.endsWith('commentsFilled.png')) {
+            setShowCommentsSection(false);
             e.target.src = '../images/comments.png';
             return;
         }
@@ -81,6 +83,7 @@ function Posts() {
             allCommentButtons[i].src = '../images/comments.png';   
         }
         e.target.src = '../images/commentsFilled.png';
+        setShowCommentsSection(true);
     }
 
     return (
@@ -104,7 +107,12 @@ function Posts() {
                 )
             })}
             </div>
-        </>
+            {showCommentsSection && 
+                <div id='commentsSection'>
+                    <h1>Comments</h1>
+                </div>
+            }
+        </> 
     )
 }
 
