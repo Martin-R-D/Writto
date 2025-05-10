@@ -1,4 +1,3 @@
-/* Container for options (e.g., For you, Liked) */
 #optionsDiv {
   display: flex;
   justify-content: space-between;
@@ -16,17 +15,15 @@
   color: #0066cc;
 }
 
-/* Posts container */
 #posts {
   max-width: 100%;
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  justify-content: flex-start; /* Align items to the left */
+  justify-content: flex-start;
 }
 
-/* Individual post */
 .postPostPage {
   width: 450px;
   background-color: #ffffff;
@@ -41,7 +38,6 @@
   box-shadow: 0 6px 12px rgba(81, 166, 255, 0.3);
 }
 
-/* Post title */
 .postTitlePostPage {
   font-size: 24px;
   font-weight: bold;
@@ -49,14 +45,12 @@
   margin-bottom: 10px;
 }
 
-/* Author name */
 .authorNamePostPage {
   font-size: 14px;
   color: #888888;
   margin-bottom: 10px;
 }
 
-/* Post content */
 .postContentPostPage {
   font-size: 16px;
   line-height: 1.6;
@@ -64,16 +58,21 @@
   margin-bottom: 15px;
 }
 
-/* Likes section */
 .postLikesPostPage {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Heart icon */
 .heartPostPage {
   width: 10%;
   height: 10%;
+  cursor: pointer;
+}
+
+.commentsPostPage {
+  margin-left: 10%;
+  width: 9%;
+  height: 9%;
   cursor: pointer;
 }

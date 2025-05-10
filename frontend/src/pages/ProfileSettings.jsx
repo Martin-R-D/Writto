@@ -78,6 +78,10 @@ function ProfileSettings() {
     }, []);
 
     function openComments(e, post_id) {
+        if(e.target.src.endsWith('commentsFilled.png')) {
+            e.target.src = '../images/comments.png';
+            return;
+        }
         const allCommentButtons = document.getElementsByClassName('comments');
         for(let i = 0; i < allCommentButtons.length; i++) {
             allCommentButtons[i].src = '../images/comments.png';   

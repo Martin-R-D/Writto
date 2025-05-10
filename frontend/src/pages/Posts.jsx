@@ -71,6 +71,18 @@ function Posts() {
         fetchPosts();
     }, []);
 
+    function openComments(e, post_id) {
+        if (e.target.src.endsWith('commentsFilled.png')) {
+            e.target.src = '../images/comments.png';
+            return;
+        }
+        const allCommentButtons = document.getElementsByClassName('commentsPostPage');
+        for(let i = 0; i < allCommentButtons.length; i++) {
+            allCommentButtons[i].src = '../images/comments.png';   
+        }
+        e.target.src = '../images/commentsFilled.png';
+    }
+
     return (
         <>
             <div id='optionsDiv'>
@@ -86,6 +98,7 @@ function Posts() {
                         <div className="postLikesPostPage">
                             <img class = 'heartPostPage' src={likedPosts.includes(post.id) ? '../images/redheart.png' : '../images/heart.png'} onClick={(e) => likePost(e, post.id)}/>
                             <p id={post.id}>{post.likes}</p>
+                            <img className = 'commentsPostPage' id ={`comments${post.id}`} src='../images/comments.png' onClick={(e) => openComments(e, post.id)}/>
                         </div>
                     </div>
                 )
