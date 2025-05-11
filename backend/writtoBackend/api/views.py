@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response 
-from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer
+from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer, CommentsSerializer
 from rest_framework import viewsets
-from .models import Posts, PostsLikes
+from .models import Posts, PostsLikes, Comments
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
@@ -17,14 +17,6 @@ class RegistrationView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
     
-# class LoginView(APIView):
-#     def post(self, request):
-#         username = request.data.get('username')
-#         password = request.data.get('password') 
-#         currentUser = authenticate(username=username, password=password)   
-#         if currentUser is not None:
-#             return Response({'response':'Logged in'}, status=200)
-#         return Response({'response':'Invalid username or password'}, status=400)
 
 class PostsView(viewsets.ModelViewSet):
     serializer_class = PostsSerializer
@@ -79,3 +71,17 @@ class LikedPostsIds(APIView):
         user = request.user
         likedPosts = PostsLikes.objects.filter(user=user).values_list('post', flat=True)
         return Response({'postIds': list(likedPosts)}, status=200)
+    
+class CommentsView(viewsets.ModelViewSet):
+    serializer_class = CommentsSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        postId = self.request.query_params.get('post_id', None)
+        if postId is not None:
+            post = Posts.objects.filter(id=postId).first()
+            return Comments.objects.filter(post=post)
+        return Comments.objects.none()
+    
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user, post=Posts.objects.filter(id=self.request.data.get('post')).first())

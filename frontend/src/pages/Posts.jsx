@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import '../styles/posts.css'
+import CommentsSection from "../components/CommentsSection";
 
 
 function Posts() {
@@ -109,9 +110,7 @@ function Posts() {
             })}
             </div>
             {showCommentsSection && 
-                <div id='commentsSection'>
-                    <h1>Comments</h1>
-                </div>
+                <CommentsSection post_id={commentsOpenedId}/>
             }
         </> 
     )
