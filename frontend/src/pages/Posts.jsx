@@ -73,6 +73,12 @@ function Posts() {
         fetchPosts();
     }, []);
 
+    useEffect(() => {
+        if(!showCommentsSection) {
+            document.getElementById(`comments${commentsOpenedId}`).src = '../images/comments.png';
+        }
+    }, [showCommentsSection]);
+
     function openComments(e, post_id) {
         if (e.target.src.endsWith('commentsFilled.png')) {
             setShowCommentsSection(false);
@@ -110,7 +116,7 @@ function Posts() {
             })}
             </div>
             {showCommentsSection && 
-                <CommentsSection post_id={commentsOpenedId}/>
+                <CommentsSection post_id={commentsOpenedId} func={() => setShowCommentsSection(false)}/>
             }
         </> 
     )

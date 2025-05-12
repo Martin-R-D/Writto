@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import '../styles/commentsSection.css'
+import dayjs from "dayjs";
 
-function CommentsSection({post_id}) {
+function CommentsSection({post_id, func}) {
     const [newComment, setNewComment] = useState('');   
     const [comments, setComments] = useState([]);
     const token = localStorage.getItem('token');
@@ -25,7 +27,6 @@ function CommentsSection({post_id}) {
 
     async function createComments() {
         try {
-            alert("Post id = " + post_id + '   content =' + newComment);
             const response = await axios.post('http://127.0.0.1:8000/api/comments/', {content: newComment, post: post_id}, {
                 headers: {
                     'Authorization': `Token ${token}`
@@ -45,17 +46,20 @@ function CommentsSection({post_id}) {
 
     return (
         <div id='commentsSection'>
+            <div id='closeButton' onClick={() => func()}>X</div>
             <div id='comments'>
                 {comments.map((comment) => {return (
                     <div key={comment.id}>
                         <p>{comment.author}</p>
                         <h3>{comment.content}</h3>
-                        <p>{comment.created_at}</p>
+                        <small>{dayjs(comment.created_at).format("YYYY-MM-DD HH:mm")}</small>
                     </div>
                 )})}
             </div>
-            <input autoComplete="off" id='commentInput' placeholder='Add a comment...' value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
-            <button id='commentButton' onClick={() => createComments()}>Post</button>
+            <div className="commentInputContainer">
+                <input autoComplete="off" id='commentInput' placeholder='Add a comment...' value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
+                <button id='commentButton' onClick={() => createComments()}>Post</button>
+            </div>
         </div>
   );
 }   
