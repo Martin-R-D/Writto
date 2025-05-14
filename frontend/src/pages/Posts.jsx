@@ -75,7 +75,8 @@ function Posts() {
 
     useEffect(() => {
         if(!showCommentsSection) {
-            document.getElementById(`comments${commentsOpenedId}`).src = '../images/comments.png';
+            const element = document.getElementById(`comments${commentsOpenedId}`);
+            if(element) element.src = '../images/comments.png';
         }
     }, [showCommentsSection]);
 
@@ -107,7 +108,7 @@ function Posts() {
                         <h2 className="postTitlePostPage">{post.title}</h2>
                         <p className="postContentPostPage">{post.content}</p>
                         <div className="postLikesPostPage">
-                            <img class = 'heartPostPage' src={likedPosts.includes(post.id) ? '../images/redheart.png' : '../images/heart.png'} onClick={(e) => likePost(e, post.id)}/>
+                            <img className = 'heartPostPage' src={likedPosts.includes(post.id) ? '../images/redheart.png' : '../images/heart.png'} onClick={(e) => likePost(e, post.id)}/>
                             <p id={post.id}>{post.likes}</p>
                             <img className = 'commentsPostPage' id ={`comments${post.id}`} src='../images/comments.png' onClick={(e) => openComments(e, post.id)}/>
                         </div>
