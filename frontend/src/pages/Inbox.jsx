@@ -4,6 +4,7 @@ import '../styles/inbox.css'
 
 function Inbox() {
     const [invites, setInvites] = useState([]);
+    const [sentInvites, setSentInvites] = useState([]);
 
     async function fetchInvites() {
         try {
@@ -18,8 +19,25 @@ function Inbox() {
         }
     }
 
+    async function fetchSentInvites() {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/friend-requests/', {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }, 
+                params: {
+                    sentInvites: true
+                }
+            });
+            if(response.status === 200) setSentInvites(response.data);
+        } catch(err) {
+            alert(err);
+        }
+    }
+
     useEffect(() => {
         fetchInvites();
+        fetchSentInvites();
     }, []);
 
     return (
@@ -32,6 +50,18 @@ function Inbox() {
                             <h3 className='inviteHeading'>Pending invite from {invite.from_user}</h3>
                             <button className = 'accept'>Accept</button>
                             <button className='reject'>Reject</button>
+                        </div>
+                    );
+                })}
+            </div>
+
+            <h2 id='sentInvitesHeading'>Sent invites: </h2>
+            <div id='sentInvites'>
+                {sentInvites.map((invite) => {
+                    return (
+                        <div className='sentInvite'>
+                            <h3 className='sentInviteHeading'>Request sent to <strong>{invite.to_user}</strong></h3>
+                            <button className='deleteInvite'>Cancel</button>
                         </div>
                     );
                 })}

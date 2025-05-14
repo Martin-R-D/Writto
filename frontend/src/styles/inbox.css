@@ -1,19 +1,23 @@
-#pendingInvitesHeading {
+#pendingInvitesHeading,
+#sentInvitesHeading {
     font-size: 2rem;
     font-weight: 600;
     width: 150%;
+    margin-top: 20%;
     margin-bottom: 1.5rem;
     color: #2c3e50;
 }
 
-#pendingInvites {
+#pendingInvites,
+#sentInvites {
     display: flex;
     width: 150%;
     flex-direction: column;
     gap: 1.2rem;
 }
 
-.invite {
+.invite,
+.sentInvite {
     background-color: #ffffff;
     border-radius: 12px;
     padding: 1.5rem;
@@ -23,19 +27,22 @@
     width: 100%;
 }
 
-.invite:hover {
+.invite:hover,
+.sentInvite:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
-.inviteHeading {
+.inviteHeading,
+.sentInviteHeading {
     font-size: 1.25rem;
     margin: 0 0 1rem 0;
     color: #34495e;
 }
 
 .accept,
-.reject {
+.reject,
+.deleteInvite {
     padding: 0.5rem 1.2rem;
     font-size: 0.95rem;
     font-weight: 600;
@@ -63,5 +70,15 @@
 
 .reject:hover {
     background-color: #f5c6c2;
+    transform: scale(1.03);
+}
+
+.deleteInvite {
+    background-color: #fef7e0;
+    color: #b9770e;
+}
+
+.deleteInvite:hover {
+    background-color: #fce5a2;
     transform: scale(1.03);
 }

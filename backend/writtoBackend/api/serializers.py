@@ -33,6 +33,11 @@ class CommentsSerializer(serializers.ModelSerializer):
 
 class FriendRequetsSerializer(serializers.ModelSerializer):
     from_user = serializers.ReadOnlyField(source='from_user.username')
+    to_user = serializers.SerializerMethodField()
+
+    def get_to_user(self, obj):
+        return obj.to_user.username
+
     class Meta:
         model = FriendRequets
         fields = '__all__'

@@ -107,6 +107,11 @@ class FriendRequetsView(APIView):
         return Response(serializer.errors, status=400)
     
     def get(self, request):
+        sent_invites = self.request.query_params.get('sentInvites', None)
+        if sent_invites is not None:
+            friendRequets = FriendRequets.objects.filter(from_user=request.user)
+            serializer = FriendRequetsSerializer(friendRequets, many=True)
+            return Response(serializer.data, status=200)
         friendRequets = FriendRequets.objects.filter(to_user=request.user)
         serializer = FriendRequetsSerializer(friendRequets, many=True)
-        return Response(serializer.data, status=200)
+        return Response(serializer.data, status=200)    
