@@ -2,7 +2,10 @@
 function Inbox() {
     return (
         <>
-        <h1>Indox</h1>
+            <h2>Pending invites: </h2>
+            <div id='pendingInvites'>
+                
+            </div>
         </>
         
     )

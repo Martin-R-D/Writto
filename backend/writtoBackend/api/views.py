@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response 
-from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer, CommentsSerializer
+from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer, CommentsSerializer, FriendRequetsSerializer
 from rest_framework import viewsets
-from .models import Posts, PostsLikes, Comments
+from .models import Posts, PostsLikes, Comments, FriendRequets
+from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
@@ -85,3 +86,22 @@ class CommentsView(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(author=self.request.user, post=Posts.objects.filter(id=self.request.data.get('post')).first())
+
+class FriendRequetsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        to_user = User.objects.filter(username=request.data.get('username')).first()
+        if to_user is None:
+            return Response({'error': 'User not found'}, status=404)
+        
+        if FriendRequets.objects.filter(from_user=request.user, to_user=to_user).exists():
+            return Response({'error': 'Friend request already sent'}, status=400)
+        if FriendRequets.objects.filter(from_user=to_user, to_user=request.user).exists():
+            return Response({'error': 'This user already sent you a friend request'}, status=400)
+        
+        serializer = FriendRequetsSerializer(data={'from_user': request.user, 'to_user': to_user.id})
+        if serializer.is_valid():
+            serializer.save(from_user=request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

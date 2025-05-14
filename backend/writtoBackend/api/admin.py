@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Posts, PostsLikes, Comments
+from .models import Posts, PostsLikes, Comments, FriendRequets
 
 
 class CommentsAdmin(admin.ModelAdmin):
@@ -8,4 +8,5 @@ class CommentsAdmin(admin.ModelAdmin):
 admin.site.register(Posts)
 admin.site.register(PostsLikes)
 admin.site.register(Comments, CommentsAdmin)
+admin.site.register(FriendRequets)
 

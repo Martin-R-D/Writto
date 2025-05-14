@@ -17,3 +17,7 @@ class Comments(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
+
+class FriendRequets(models.Model):
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='send_friend_requests')
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_friend_requests')

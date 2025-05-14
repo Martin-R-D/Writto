@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from .views import RegistrationView, PostsView, GetUserData, LikePost, LikedPostsIds, CommentsView
+from .views import RegistrationView, PostsView, GetUserData, LikePost, LikedPostsIds, CommentsView, FriendRequetsView
 
 router = routers.DefaultRouter()
 router.register('posts', PostsView, basename='post')
@@ -14,4 +14,5 @@ urlpatterns = [
     path('get-user/', GetUserData.as_view()),
     path('like-post/', LikePost.as_view()),
     path('liked-posts/', LikedPostsIds.as_view()),
+    path('friend-requests/', FriendRequetsView.as_view()),
 ]
