@@ -1,0 +1,67 @@
+#pendingInvitesHeading {
+    font-size: 2rem;
+    font-weight: 600;
+    width: 150%;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+}
+
+#pendingInvites {
+    display: flex;
+    width: 150%;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.invite {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e3eaf0;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.invite:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.inviteHeading {
+    font-size: 1.25rem;
+    margin: 0 0 1rem 0;
+    color: #34495e;
+}
+
+.accept,
+.reject {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    margin-right: 0.5rem;
+}
+
+.accept {
+    background-color: #d5f5e3;
+    color: #1e8449;
+}
+
+.accept:hover {
+    background-color: #abebc6;
+    transform: scale(1.03);
+}
+
+.reject {
+    background-color: #fdecea;
+    color: #c0392b;
+}
+
+.reject:hover {
+    background-color: #f5c6c2;
+    transform: scale(1.03);
+}

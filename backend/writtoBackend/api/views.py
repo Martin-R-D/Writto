@@ -105,3 +105,8 @@ class FriendRequetsView(APIView):
             serializer.save(from_user=request.user)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+    
+    def get(self, request):
+        friendRequets = FriendRequets.objects.filter(to_user=request.user)
+        serializer = FriendRequetsSerializer(friendRequets, many=True)
+        return Response(serializer.data, status=200)
