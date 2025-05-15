@@ -48,6 +48,19 @@ function Inbox() {
         }
     }
 
+    async function rejectRequest(id) {
+        try {
+            const response = await axios.delete(`http://127.0.0.1:8000/api/friend-requests/${id}/`, {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            });
+            if(response.status === 200) fetchInvites();
+        } catch(err) {
+            alert(err);
+        }
+    }
+
     useEffect(() => {
         fetchInvites();
         fetchSentInvites();
@@ -62,7 +75,7 @@ function Inbox() {
                         <div className='invite'>
                             <h3 className='inviteHeading'>Pending invite from {invite.from_user}</h3>
                             <button className = 'accept'>Accept</button>
-                            <button className='reject'>Reject</button>
+                            <button className='reject' onClick={() => rejectRequest(invite.id)}>Reject</button>
                         </div>
                     );
                 })}
