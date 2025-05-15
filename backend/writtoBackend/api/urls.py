@@ -15,4 +15,5 @@ urlpatterns = [
     path('like-post/', LikePost.as_view()),
     path('liked-posts/', LikedPostsIds.as_view()),
     path('friend-requests/', FriendRequetsView.as_view()),
+    path('friend-requests/<int:pk>/', FriendRequetsView.as_view()),
 ]

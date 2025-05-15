@@ -35,6 +35,19 @@ function Inbox() {
         }
     }
 
+    async function cancelRequest(id) {
+        try {
+            const response = await axios.delete(`http://127.0.0.1:8000/api/friend-requests/${id}/`, {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            });
+            if(response.status === 200) fetchSentInvites();
+        } catch(err) {
+            alert(err);
+        }
+    }
+
     useEffect(() => {
         fetchInvites();
         fetchSentInvites();
@@ -59,9 +72,9 @@ function Inbox() {
             <div id='sentInvites'>
                 {sentInvites.map((invite) => {
                     return (
-                        <div className='sentInvite'>
+                        <div className='sentInvite' key={invite.id}>
                             <h3 className='sentInviteHeading'>Request sent to <strong>{invite.to_user}</strong></h3>
-                            <button className='deleteInvite'>Cancel</button>
+                            <button className='deleteInvite' onClick={() => cancelRequest(invite.id)}>Cancel</button>
                         </div>
                     );
                 })}

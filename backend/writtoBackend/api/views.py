@@ -100,18 +100,25 @@ class FriendRequetsView(APIView):
         if FriendRequets.objects.filter(from_user=to_user, to_user=request.user).exists():
             return Response({'error': 'This user already sent you a friend request'}, status=400)
         
-        serializer = FriendRequetsSerializer(data={'from_user': request.user, 'to_user': to_user.id})
-        if serializer.is_valid():
-            serializer.save(from_user=request.user)
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+        friendRequest = FriendRequets.objects.create(from_user=request.user, to_user=to_user)
+
+        serializer = FriendRequetsSerializer(friendRequest)
+        return Response(serializer.data, status=201)
     
     def get(self, request):
         sent_invites = self.request.query_params.get('sentInvites', None)
+        user = request.user
         if sent_invites is not None:
-            friendRequets = FriendRequets.objects.filter(from_user=request.user)
+            friendRequets = user.send_friend_requests.all()
             serializer = FriendRequetsSerializer(friendRequets, many=True)
             return Response(serializer.data, status=200)
-        friendRequets = FriendRequets.objects.filter(to_user=request.user)
+        friendRequets = user.received_friend_requests.all()
         serializer = FriendRequetsSerializer(friendRequets, many=True)
-        return Response(serializer.data, status=200)    
+        return Response(serializer.data, status=200)   
+
+    def delete(self, request, pk):
+        friendRequest = FriendRequets.objects.filter(pk=pk).first() 
+        if friendRequest is None:
+            return Response({'error': 'Friend request not found'}, status=404)
+        friendRequest.delete()
+        return Response({'message': 'Friend request deleted'}, status=200)
