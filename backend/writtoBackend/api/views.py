@@ -1,12 +1,11 @@
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response 
-from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer, CommentsSerializer, FriendRequetsSerializer
+from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer, CommentsSerializer, FriendRequetsSerializer, FriendsSerializer
 from rest_framework import viewsets
-from .models import Posts, PostsLikes, Comments, FriendRequets
+from .models import Posts, PostsLikes, Comments, FriendRequets, Friends
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
-
 
 class RegistrationView(APIView):    
     permission_classes = [AllowAny]
@@ -122,3 +121,27 @@ class FriendRequetsView(APIView):
             return Response({'error': 'Friend request not found'}, status=404)
         friendRequest.delete()
         return Response({'message': 'Friend request deleted'}, status=200)
+    
+class FriendsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from_user = User.objects.filter(username=request.data.get('username')).first()
+        to_user = request.user
+        friendRequest = FriendRequets.objects.filter(from_user=from_user, to_user=to_user).first()
+        if friendRequest is not None:
+            friendRequest.delete()
+            friend = Friends.objects.create(user1=from_user, user2=to_user)
+            serializer = FriendsSerializer(friend)
+            return Response(serializer.data, status=201)
+        return Response({'error': 'Friend request not found'}, status=404)
+    
+    # def get(self, request):
+    #     user = request.user
+    #     friends1 = user.user1.all()
+    #     usernames1 = friends1.values_list('user2', flat=True)
+    #     friends2 = user.user2.all()
+    #     usernames2 = friends2.values_list('user1', flat=True)
+
+    #     friends = usernames1 + usernames2
+    #     return Response({'friends': list(friends)}, status=200)

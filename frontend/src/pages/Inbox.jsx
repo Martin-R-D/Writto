@@ -5,12 +5,12 @@ import '../styles/inbox.css'
 function Inbox() {
     const [invites, setInvites] = useState([]);
     const [sentInvites, setSentInvites] = useState([]);
-
+    const token = localStorage.getItem('token');
     async function fetchInvites() {
         try {
             const response = await axios.get('http://127.0.0.1:8000/api/friend-requests/', {
                 headers: {
-                    'Authorization': `Token ${localStorage.getItem('token')}`
+                    'Authorization': `Token ${token}`
                 }
             });
             if(response.status === 200) setInvites(response.data);
@@ -23,7 +23,7 @@ function Inbox() {
         try {
             const response = await axios.get('http://127.0.0.1:8000/api/friend-requests/', {
                 headers: {
-                    'Authorization': `Token ${localStorage.getItem('token')}`
+                    'Authorization': `Token ${token}`
                 }, 
                 params: {
                     sentInvites: true
@@ -52,10 +52,23 @@ function Inbox() {
         try {
             const response = await axios.delete(`http://127.0.0.1:8000/api/friend-requests/${id}/`, {
                 headers: {
-                    'Authorization': `Token ${localStorage.getItem('token')}`
+                    'Authorization': `Token ${token}`
                 }
             });
             if(response.status === 200) fetchInvites();
+        } catch(err) {
+            alert(err);
+        }
+    }
+
+    async function acceptRequest(username) {
+        try {
+            const response = await axios.post(`http://127.0.0.1:8000/api/friends/`, {username: username}, {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            if(response.status === 201) fetchInvites();
         } catch(err) {
             alert(err);
         }
@@ -74,7 +87,7 @@ function Inbox() {
                     return (
                         <div className='invite'>
                             <h3 className='inviteHeading'>Pending invite from {invite.from_user}</h3>
-                            <button className = 'accept'>Accept</button>
+                            <button className = 'accept' onClick={() => acceptRequest(invite.from_user)}>Accept</button>
                             <button className='reject' onClick={() => rejectRequest(invite.id)}>Reject</button>
                         </div>
                     );

@@ -1,8 +1,9 @@
-import {useState} from 'react'
+import {useState, useEffect, use} from 'react'
 import axios from 'axios';
 
 function Friends() {
     const [search, setSearch] = useState('');
+    const [friends, setFriends] = useState([]);
     const token = localStorage.getItem('token');
     async function sendFriendRequest() {
         try {
@@ -18,6 +19,25 @@ function Friends() {
             alert(err.response.data.error);
         }
     }
+
+
+    // async function fetchFriends() {
+    //     try {
+    //         const response = await axios.get('http://127.0.0.1:8000/api/friends/', {
+    //             headers: {
+    //                 'Authorization': `Token ${token}`
+    //             }
+    //         });
+    //         if(response.status === 200) setFriends(response.data);
+    //     } catch(err) {
+    //         alert(err);
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     fetchFriends();
+    // }, [])
+
     return (
         <>
         <form onSubmit={(e) => {
@@ -31,6 +51,15 @@ function Friends() {
             sendFriendRequest();
          }}>Send friend request</button>
          </form>
+
+         {/* <div id='friends'>
+            <h2 id='friendsHeading'>Your friends: </h2>
+            <div id='friendsList'>
+                {friends.map((friend) => (
+                    <div className='friend' key={friend.id}>{friend.user2}</div>
+                ))}
+            </div>
+         </div> */}
         </>
     )
 }

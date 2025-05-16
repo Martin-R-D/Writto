@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Posts, PostsLikes, Comments, FriendRequets
+from .models import Posts, PostsLikes, Comments, FriendRequets, Friends
 
 class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,4 +37,11 @@ class FriendRequetsSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = FriendRequets
+        fields = '__all__'
+
+class FriendsSerializer(serializers.ModelSerializer):
+    user1 = serializers.ReadOnlyField(source='user1.username')
+    user2 = serializers.ReadOnlyField(source='user2.username')
+    class Meta:
+        model = Friends
         fields = '__all__'

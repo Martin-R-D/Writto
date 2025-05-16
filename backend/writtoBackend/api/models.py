@@ -21,3 +21,7 @@ class Comments(models.Model):
 class FriendRequets(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='send_friend_requests')
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_friend_requests')
+
+class Friends(models.Model):
+    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user1')
+    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user2')
