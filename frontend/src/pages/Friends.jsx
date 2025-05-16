@@ -21,22 +21,22 @@ function Friends() {
     }
 
 
-    // async function fetchFriends() {
-    //     try {
-    //         const response = await axios.get('http://127.0.0.1:8000/api/friends/', {
-    //             headers: {
-    //                 'Authorization': `Token ${token}`
-    //             }
-    //         });
-    //         if(response.status === 200) setFriends(response.data);
-    //     } catch(err) {
-    //         alert(err);
-    //     }
-    // }
+    async function fetchFriends() {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/friends/', {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            if(response.status === 200) setFriends(response.data.friends);
+        } catch(err) {
+            alert(err);
+        }
+    }
 
-    // useEffect(() => {
-    //     fetchFriends();
-    // }, [])
+    useEffect(() => {
+        fetchFriends();
+    }, [])
 
     return (
         <>
@@ -52,14 +52,14 @@ function Friends() {
          }}>Send friend request</button>
          </form>
 
-         {/* <div id='friends'>
+         <div id='friends'>
             <h2 id='friendsHeading'>Your friends: </h2>
             <div id='friendsList'>
-                {friends.map((friend) => (
-                    <div className='friend' key={friend.id}>{friend.user2}</div>
+                {friends.map((username, index) => (
+                    <div className='friend' key={index}>{username}</div>
                 ))}
             </div>
-         </div> */}
+         </div>
         </>
     )
 }
