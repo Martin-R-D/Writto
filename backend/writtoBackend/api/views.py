@@ -94,6 +94,9 @@ class FriendRequetsView(APIView):
         if to_user is None:
             return Response({'error': 'User not found'}, status=404)
         
+        if to_user == request.user:
+            return Response({'error': 'You cannot send a friend request to yourself'}, status=400)
+
         if FriendRequets.objects.filter(from_user=request.user, to_user=to_user).exists():
             return Response({'error': 'Friend request already sent'}, status=400)
         if FriendRequets.objects.filter(from_user=to_user, to_user=request.user).exists():

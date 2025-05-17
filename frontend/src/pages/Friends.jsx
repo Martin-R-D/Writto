@@ -99,7 +99,7 @@ function Friends() {
                     }}
                     >
                         <p>{friend.user1 === userUsername ? friend.user2 : friend.user1}</p>
-                        <button id={`removeFriend${friend.id}`} style={{display: 'none'}} onClick={() => removeFriend(friend.id)}>X</button>
+                        <button id={`removeFriend${friend.id}`} className='removeFriendBtn' style={{display: 'none'}} onClick={() => removeFriend(friend.id)}>X</button>
                     </div>
                 ))}
             </div>
