@@ -92,6 +92,7 @@ function Inbox() {
                         </div>
                     );
                 })}
+                {invites.length === 0 && <p>No pending invites</p>}
             </div>
 
             <h2 id='sentInvitesHeading'>Sent invites: </h2>
@@ -104,6 +105,7 @@ function Inbox() {
                         </div>
                     );
                 })}
+                {sentInvites.length === 0 && <p>No sent invites</p>}
             </div>
         </>
         
