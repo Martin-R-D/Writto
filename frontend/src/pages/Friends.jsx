@@ -4,7 +4,26 @@ import axios from 'axios';
 function Friends() {
     const [search, setSearch] = useState('');
     const [friends, setFriends] = useState([]);
+    const [userUsername, setUserUsername] = useState('');
     const token = localStorage.getItem('token');
+
+    async function getUser() {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/get-user/', {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            if(response.status === 200) setUserUsername(response.data.username);
+            else throw new Error(response.data);
+        } catch(err) {
+            alert(err);
+        }
+    }
+
+
+
+
     async function sendFriendRequest() {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/friend-requests/', {username: search}, {
@@ -28,7 +47,7 @@ function Friends() {
                     'Authorization': `Token ${token}`
                 }
             });
-            if(response.status === 200) setFriends(response.data.friends);
+            if(response.status === 200) setFriends(response.data);
         } catch(err) {
             alert(err);
         }
@@ -55,8 +74,8 @@ function Friends() {
          <div id='friends'>
             <h2 id='friendsHeading'>Your friends: </h2>
             <div id='friendsList'>
-                {friends.map((username, index) => (
-                    <div className='friend' key={index}>{username}</div>
+                {friends.map((friend) => (
+                    <div className='friend' key={friend.id}>{friend.user1 == userUsername ? friend.user2 : friend.user1}</div>
                 ))}
             </div>
          </div>

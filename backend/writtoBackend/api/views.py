@@ -139,9 +139,7 @@ class FriendsView(APIView):
     def get(self, request):
         user = request.user
         friends1 = user.user1.all()
-        usernames1 = friends1.values_list('user2__username', flat=True)
         friends2 = user.user2.all()
-        usernames2 = friends2.values_list('user1__username', flat=True)
-
-        friends = usernames1.union(usernames2)
-        return Response({'friends': list(friends)}, status=200)
+        friends = friends1.union(friends2)
+        serializer = FriendsSerializer(friends, many=True)
+        return Response(serializer.data, status=200)
