@@ -3,6 +3,7 @@ import Posts from "./Posts";
 import Friends from "./Friends";
 import Inbox from "./Inbox";
 import ProfileSettings from "./ProfileSettings";
+import Chats from "./Chats";
 import { useState } from "react";
 import '../styles/home.css'
 
@@ -27,6 +28,8 @@ function Home() {
                 return <Friends/>
             case 4:
                 return <ProfileSettings/>
+            case 5:
+                return <Chats/>
         }
     }
         
@@ -36,6 +39,7 @@ function Home() {
             <div className='navElements' style={page===1 ? {backgroundColor:'#e0e0e0'} : {backgroundColor:'#f5f5f5'}} onClick={() => setPage(1)}>Posts</div>
             <div className="navElements" style={page===2 ? {backgroundColor:'#e0e0e0'} : {backgroundColor:'#f5f5f5'}} onClick={() => setPage(2)}>Inbox</div>
             <div className="navElements" style={page===3 ? {backgroundColor:'#e0e0e0'} : {backgroundColor:'#f5f5f5'}} onClick={() => setPage(3)}>Friends</div>
+            <div className="navElements" style={page===5 ? {backgroundColor:'#e0e0e0'} : {backgroundColor:'#f5f5f5'}} onClick={() => setPage(5)}>Chats</div>
             <div className="navElements" style={page===4 ? {backgroundColor:'#e0e0e0'} : {backgroundColor:'#f5f5f5'}} onClick={() => setPage(4)}>Profile</div>
         </nav>
         <div id="pageContent">
