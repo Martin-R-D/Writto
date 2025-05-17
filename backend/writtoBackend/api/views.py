@@ -148,3 +148,10 @@ class FriendsView(APIView):
         friends = friends1.union(friends2)
         serializer = FriendsSerializer(friends, many=True)
         return Response(serializer.data, status=200)
+    
+    def delete(self, request, pk):
+        friend = Friends.objects.filter(pk=pk).first() 
+        if friend is None:
+            return Response({'error': 'Friend not found'}, status=404)
+        friend.delete()
+        return Response({'message': 'Friend deleted'}, status=200)

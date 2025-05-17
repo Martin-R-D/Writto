@@ -54,6 +54,19 @@ function Friends() {
         }
     }
 
+    async function removeFriend(id) {
+        try {
+            const response = await axios.delete(`http://127.0.0.1:8000/api/friends/${id}/`, {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            if(response.status === 200) fetchFriends();
+        } catch(err) {
+            alert(err);
+        }
+    }
+
     useEffect(() => {
         fetchFriends();
         getUser();
@@ -86,7 +99,7 @@ function Friends() {
                     }}
                     >
                         <p>{friend.user1 === userUsername ? friend.user2 : friend.user1}</p>
-                        <button id={`removeFriend${friend.id}`} style={{display: 'none'}}>X</button>
+                        <button id={`removeFriend${friend.id}`} style={{display: 'none'}} onClick={() => removeFriend(friend.id)}>X</button>
                     </div>
                 ))}
             </div>

@@ -17,4 +17,5 @@ urlpatterns = [
     path('friend-requests/', FriendRequetsView.as_view()),
     path('friend-requests/<int:pk>/', FriendRequetsView.as_view()),
     path('friends/', FriendsView.as_view()),
+    path('friends/<int:pk>/', FriendsView.as_view()),
 ]
