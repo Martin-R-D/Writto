@@ -99,6 +99,11 @@ class FriendRequetsView(APIView):
         if FriendRequets.objects.filter(from_user=to_user, to_user=request.user).exists():
             return Response({'error': 'This user already sent you a friend request'}, status=400)
         
+        if Friends.objects.filter(user1=request.user, user2=to_user).exists() or Friends.objects.filter(user1=to_user, user2=request.user).exists():
+            return Response({'error': 'You are already friends'}, status=400)
+
+
+
         friendRequest = FriendRequets.objects.create(from_user=request.user, to_user=to_user)
 
         serializer = FriendRequetsSerializer(friendRequest)
