@@ -55,6 +55,7 @@ function Friends() {
 
     useEffect(() => {
         fetchFriends();
+        getUser();
     }, [])
 
     return (
