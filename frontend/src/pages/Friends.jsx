@@ -1,5 +1,6 @@
 import {useState, useEffect, use} from 'react'
 import axios from 'axios';
+import '../styles/friends.css'
 
 function Friends() {
     const [search, setSearch] = useState('');
@@ -66,7 +67,7 @@ function Friends() {
             }}>
          <label htmlFor='search'>Look for a user</label>
          <input id='search' type='text' value={search} onChange={(e) => setSearch(e.target.value)}/>
-         <button type='submit' onClick={(e) => {
+         <button id='sendRequestBtn' type='submit' onClick={(e) => {
             e.preventDefault();
             sendFriendRequest();
          }}>Send friend request</button>
@@ -76,7 +77,17 @@ function Friends() {
             <h2 id='friendsHeading'>Your friends: </h2>
             <div id='friendsList'>
                 {friends.map((friend) => (
-                    <div className='friend' key={friend.id}>{friend.user1 == userUsername ? friend.user2 : friend.user1}</div>
+                    <div className='friend' key={friend.id} onMouseOver={() => {
+                        document.getElementById(`removeFriend${friend.id}`).style.display = 'block';
+                    }}
+                    
+                    onMouseLeave = {() => {
+                        document.getElementById(`removeFriend${friend.id}`).style.display = 'none';	
+                    }}
+                    >
+                        <p>{friend.user1 === userUsername ? friend.user2 : friend.user1}</p>
+                        <button id={`removeFriend${friend.id}`} style={{display: 'none'}}>X</button>
+                    </div>
                 ))}
             </div>
          </div>
