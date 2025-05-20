@@ -4,7 +4,8 @@ import Friends from "./Friends";
 import Inbox from "./Inbox";
 import ProfileSettings from "./ProfileSettings";
 import Chats from "./Chats";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import '../styles/home.css'
 
 function Home() {
@@ -18,6 +19,8 @@ function Home() {
         </>
         );
 
+    const token = localStorage.getItem('token');
+    const [userUsername, setUserUsername] = useState('');
     function renderCurrentPage() {
         switch(page) {
             case 1:
@@ -25,13 +28,31 @@ function Home() {
             case 2:
                 return <Inbox/>
             case 3:
-                return <Friends/>
+                return <Friends userUsername={userUsername}/>
             case 4:
-                return <ProfileSettings/>
+                return <ProfileSettings userUsername={userUsername}/>
             case 5:
                 return <Chats/>
         }
     }
+
+    async function getUser() {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/get-user/', {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            });
+            if(response.status === 200) setUserUsername(response.data.username);
+            else throw new Error(response.data);
+        } catch(err) {
+            alert(err);
+        }
+    }
+
+    useEffect(() => {
+        getUser();
+    }, []);
         
     return (
         <>

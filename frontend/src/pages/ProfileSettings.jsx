@@ -2,28 +2,13 @@ import { useState, useEffect } from "react"
 import axios, { all } from "axios"
 import { useNavigate } from "react-router-dom"
 import '../styles/profile.css'
-function ProfileSettings() {
+function ProfileSettings({userUsername}) {
     const [userPosts, setUserPosts] = useState([]);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
-    const [username, setUsername] = useState('');
-
-    async function getUser() {
-        try {
-            const response = await axios.get('http://127.0.0.1:8000/api/get-user/', {
-                headers: {
-                    'Authorization': `Token ${token}`
-                }
-            });
-            if(response.status === 200) setUsername(response.data.username);
-            else throw new Error(response.data);
-        } catch(err) {
-            alert(err);
-        }
-    }
-
+    
     async function getUserPosts() {
         try {
             const response = await axios.get('http://127.0.0.1:8000/api/posts/', {
@@ -73,7 +58,6 @@ function ProfileSettings() {
         navigate('/login');
     }
     useEffect(() => {
-        getUser();
         getUserPosts();
     }, []);
 
@@ -90,7 +74,7 @@ function ProfileSettings() {
     }
     return (
         <div id='profilePage'>        
-            <h1 id='usernameHeader'>Hello, {username}</h1>
+            <h1 id='usernameHeader'>Hello, {userUsername}</h1>
             <h1 id='yourPostsHeader'>Your posts: </h1>
                 <div id='yourPosts'>
                     {userPosts.map((post) => {

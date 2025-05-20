@@ -1,30 +1,13 @@
-import {useState, useEffect, use} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios';
 import '../styles/friends.css'
 
-function Friends() {
+function Friends({userUsername}) {
     const [search, setSearch] = useState('');
     const [friends, setFriends] = useState([]);
-    const [userUsername, setUserUsername] = useState('');
     const token = localStorage.getItem('token');
 
-    async function getUser() {
-        try {
-            const response = await axios.get('http://127.0.0.1:8000/api/get-user/', {
-                headers: {
-                    'Authorization': `Token ${token}`
-                }
-            });
-            if(response.status === 200) setUserUsername(response.data.username);
-            else throw new Error(response.data);
-        } catch(err) {
-            alert(err);
-        }
-    }
-
-
-
-
+    
     async function sendFriendRequest() {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/friend-requests/', {username: search}, {
@@ -69,7 +52,6 @@ function Friends() {
 
     useEffect(() => {
         fetchFriends();
-        getUser();
     }, [])
 
     return (
