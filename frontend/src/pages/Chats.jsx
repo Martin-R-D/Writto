@@ -1,8 +1,9 @@
-import {useState, useEffect, use} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
+import '../styles/chats.css'
 
 
-function Chats() {
+function Chats({userUsername}) {
     const [friends, setFriends] = useState([]);
     
     const token = localStorage.getItem('token');
@@ -28,7 +29,7 @@ function Chats() {
         <div id='chats'>
             {friends.map(friend => (
                 <div className='chat' key={friend.id}>
-                    
+                    <h2 className='chat-name'>{friend.user1 === userUsername ? friend.user2 : friend.user1}</h2>
                 </div>
             ))}
         </div>

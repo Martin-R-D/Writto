@@ -34,10 +34,12 @@ nav {
 
 
 #pageContent {
-  margin-left: 20%;
+  margin-left:20%;
   padding: 30px;
   box-sizing: border-box;
   background-color: #fff;
+
+  width:70vw;
 }
 
 

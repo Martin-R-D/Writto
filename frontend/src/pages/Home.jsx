@@ -32,7 +32,7 @@ function Home() {
             case 4:
                 return <ProfileSettings userUsername={userUsername}/>
             case 5:
-                return <Chats/>
+                return <Chats userUsername={userUsername}/>
         }
     }
 
