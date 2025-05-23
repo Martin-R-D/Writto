@@ -2,7 +2,7 @@
 #sentInvitesHeading {
     font-size: 2rem;
     font-weight: 600;
-    width: 150%;
+    width: 95%;
     margin-top: 20%;
     margin-bottom: 1.5rem;
     color: #2c3e50;
@@ -11,7 +11,7 @@
 #pendingInvites,
 #sentInvites {
     display: flex;
-    width: 150%;
+    width: 95%;
     flex-direction: column;
     gap: 1.2rem;
 }
