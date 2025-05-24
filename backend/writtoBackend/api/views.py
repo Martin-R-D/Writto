@@ -3,9 +3,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response 
 from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer, CommentsSerializer, FriendRequetsSerializer, FriendsSerializer, MessagesSerializer
 from rest_framework import viewsets
-from .models import Posts, PostsLikes, Comments, FriendRequets, Friends
+from .models import Posts, PostsLikes, Comments, FriendRequets, Friends, Messages
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.db.models import Q
 
 class RegistrationView(APIView):    
     permission_classes = [AllowAny]
@@ -168,5 +169,12 @@ class MessagesView(APIView):
             serializer.save(sender=request.user, receiver=User.objects.filter(username=request.data.get('receiver')).first())
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+    
+    def get(self, request, friendUsername):
+        user = request.user
+        friend = User.objects.get(username=friendUsername)
+        messages = Messages.objects.filter(Q(sender=user, receiver=friend) | Q(sender=friend, receiver=user)).order_by('time')
+        serializer = MessagesSerializer(messages, many=True)
+        return Response(serializer.data, status=200)
     
     

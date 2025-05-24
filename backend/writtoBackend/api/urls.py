@@ -19,4 +19,5 @@ urlpatterns = [
     path('friends/', FriendsView.as_view()),
     path('friends/<int:pk>/', FriendsView.as_view()),
     path('messages/', MessagesView.as_view()),
+    path('messages/<str:friendUsername>/', MessagesView.as_view()),
 ]
