@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response 
-from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer, CommentsSerializer, FriendRequetsSerializer, FriendsSerializer
+from .serializers import RegistrationSerializer, PostsSerializer, PostsLikesSerializer, CommentsSerializer, FriendRequetsSerializer, FriendsSerializer, MessagesSerializer
 from rest_framework import viewsets
 from .models import Posts, PostsLikes, Comments, FriendRequets, Friends
 from django.contrib.auth.models import User
@@ -158,3 +158,15 @@ class FriendsView(APIView):
             return Response({'error': 'Friend not found'}, status=404)
         friend.delete()
         return Response({'message': 'Friend deleted'}, status=200)
+    
+class MessagesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = MessagesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(sender=request.user, receiver=User.objects.filter(username=request.data.get('receiver')).first())
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    
+    

@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from .views import RegistrationView, PostsView, GetUserData, LikePost, LikedPostsIds, CommentsView, FriendRequetsView, FriendsView
+from .views import RegistrationView, PostsView, GetUserData, LikePost, LikedPostsIds, CommentsView, FriendRequetsView, FriendsView, MessagesView
 
 router = routers.DefaultRouter()
 router.register('posts', PostsView, basename='post')
@@ -18,4 +18,5 @@ urlpatterns = [
     path('friend-requests/<int:pk>/', FriendRequetsView.as_view()),
     path('friends/', FriendsView.as_view()),
     path('friends/<int:pk>/', FriendsView.as_view()),
+    path('messages/', MessagesView.as_view()),
 ]
