@@ -25,7 +25,7 @@
 }
 
 .postPostPage {
-  width: 450px;
+  width: 53%;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 12px;
@@ -65,14 +65,30 @@
 }
 
 .heartPostPage {
-  width: 10%;
-  height: 10%;
+  width: 7%;
+  height: 7%;
   cursor: pointer;
 }
 
 .commentsPostPage {
-  margin-left: 10%;
-  width: 9%;
-  height: 9%;
+  margin-left: 7%;
+  width: 7%;
+  height: 7%;
   cursor: pointer;
 }
+
+#commentsSectionInvisible {
+  position: fixed;
+  margin-right: 5%;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px 0 0 8px;
+  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-weight: bold;
+}
+

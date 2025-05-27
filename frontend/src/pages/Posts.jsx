@@ -119,6 +119,7 @@ function Posts() {
             {showCommentsSection && 
                 <CommentsSection post_id={commentsOpenedId} func={() => setShowCommentsSection(false)}/>
             }
+            {!showCommentsSection && <div id='commentsSectionInvisible'>Comments Section</div>}
         </> 
     )
 }
