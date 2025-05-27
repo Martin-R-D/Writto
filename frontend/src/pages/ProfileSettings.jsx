@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react"
 import axios, { all } from "axios"
 import { useNavigate } from "react-router-dom"
+import CommentsSection from "../components/CommentsSection"
 import '../styles/profile.css'
 function ProfileSettings({userUsername}) {
     const [userPosts, setUserPosts] = useState([]);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [openedCommentsId, setOpenedCommentsId] = useState(-1);
+    const [showComments, setShowComments] = useState(false);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     
@@ -61,9 +64,17 @@ function ProfileSettings({userUsername}) {
         getUserPosts();
     }, []);
 
+    useEffect(() => {
+        if(!showComments) {
+            const element = document.getElementById(`comments${openedCommentsId}`);
+            if(element) element.src = '../images/comments.png';
+        }
+    }, [showComments])
+
     function openComments(e, post_id) {
         if(e.target.src.endsWith('commentsFilled.png')) {
             e.target.src = '../images/comments.png';
+            setShowComments(false);
             return;
         }
         const allCommentButtons = document.getElementsByClassName('comments');
@@ -71,6 +82,8 @@ function ProfileSettings({userUsername}) {
             allCommentButtons[i].src = '../images/comments.png';   
         }
         e.target.src = '../images/commentsFilled.png';
+        setOpenedCommentsId(post_id);
+        setShowComments(true);
     }
     return (
         <div id='profilePage'>        
@@ -93,6 +106,7 @@ function ProfileSettings({userUsername}) {
                         )
                     })}   
                 </div>
+            {showComments && <CommentsSection post_id={openedCommentsId} func={() => setShowComments(false)}/>}
             <form id='profileForm' onSubmit={(e) => {
                 e.preventDefault()
                 createPost(title, content);
