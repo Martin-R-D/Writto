@@ -59,9 +59,6 @@
     transition: transform 0.3s ease;
 }
 
-.postImage:hover {
-    transform: scale(1.07);
-}
 
 .postTitle {
     font-size: 22px;

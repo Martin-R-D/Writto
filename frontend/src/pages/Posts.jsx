@@ -104,6 +104,7 @@ function Posts() {
             {posts.map((post) => {
                 return (
                     <div className="postPostPage" key={post.id}>
+                        <img src={post.image} className='postImagePostPage'/>
                         <h4 className="authorNamePostPage">Author: {post.author}</h4>
                         <h2 className="postTitlePostPage">{post.title}</h2>
                         <p className="postContentPostPage">{post.content}</p>
