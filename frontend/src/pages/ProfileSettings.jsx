@@ -40,7 +40,12 @@ function ProfileSettings({userUsername}) {
                     'Authorization': `Token ${token}`
                 }
             });
-                if(response.status === 201) setUserPosts([...userPosts, response.data]);
+                if(response.status === 201) {
+                    setUserPosts([...userPosts, response.data]);
+                    setContent('');
+                    setTitle('');
+                    setImage(null);
+                }
                 else throw new Error(response.data);
         } catch(err) {
             alert(err);
@@ -130,7 +135,7 @@ function ProfileSettings({userUsername}) {
                 <label htmlFor="content">Content</label>
                 <input id="content" type="text" value={content} autoComplete='off' onChange={(e) => setContent(e.target.value)}/>
 
-                <button type="submit" id='createPost'>Submit</button>
+                <button type="submit" id='createPost'>Post</button>
             </form>
             <button id='logout' onClick={logOut}>Log out</button>
         </div>
