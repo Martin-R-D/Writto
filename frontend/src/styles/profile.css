@@ -108,7 +108,7 @@
     right: 15px;
 }
 
-button {
+#createPost {
     background-color: #51a6ff;
     color: white;
     border: none;
@@ -118,7 +118,7 @@ button {
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
+#createPost:hover {
     background-color: #007bff;
     transform: scale(1.05);
 }
