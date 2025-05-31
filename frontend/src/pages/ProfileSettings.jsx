@@ -9,6 +9,7 @@ function ProfileSettings({userUsername}) {
     const [content, setContent] = useState('');
     const [openedCommentsId, setOpenedCommentsId] = useState(-1);
     const [showComments, setShowComments] = useState(false);
+    const [image, setImage] = useState(null);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     
@@ -26,10 +27,15 @@ function ProfileSettings({userUsername}) {
         }
     }
 
-    async function createPost(title, content) {
+    async function createPost(title, content, image) {
         if(title.trim() === '' || content.trim() === '') return;
+        if(!image) return;
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('image', image);
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/posts/', {title, content}, {
+            const response = await axios.post('http://127.0.0.1:8000/api/posts/', formData, {
                 headers: {
                     'Authorization': `Token ${token}`
                 }
@@ -94,6 +100,7 @@ function ProfileSettings({userUsername}) {
                         return (
                             <div className="post" key={post.id}>
                                 <button className='delete' onClick={() => deletePost(post.id)}>X</button>
+                                <img className='postImage' src={post.image} alt="post image"/>
                                 <h4 className="authorName">Author: {post.author}</h4>
                                 <h2 className="postTitle">{post.title}</h2>
                                 <p className="postContent">{post.content}</p>
@@ -109,13 +116,20 @@ function ProfileSettings({userUsername}) {
             {showComments && <CommentsSection post_id={openedCommentsId} func={() => setShowComments(false)}/>}
             <form id='profileForm' onSubmit={(e) => {
                 e.preventDefault()
-                createPost(title, content);
+                createPost(title, content, image);
             }}>
                 <h2 id='newPostHeading'>New Post</h2>
                 <label htmlFor="title">Title</label>
+
                 <input id="title" type="text" value={title} autoComplete='off' onChange={(e) => setTitle(e.target.value)}/>
+                <label htmlFor="image">Image</label>
+
+                <img id='imagePreview' src={image ? URL.createObjectURL(image):'../images/defaultImage.jpg'} alt='preview'/>
+                <input id="image" type="file" autoComplete='off' onChange={(e) => setImage(e.target.files[0])}/>
+
                 <label htmlFor="content">Content</label>
                 <input id="content" type="text" value={content} autoComplete='off' onChange={(e) => setContent(e.target.value)}/>
+
                 <button type="submit" id='createPost'>Submit</button>
             </form>
             <button id='logout' onClick={logOut}>Log out</button>

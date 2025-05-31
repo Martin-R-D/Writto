@@ -7,6 +7,7 @@ class Posts(models.Model):
     content = models.TextField()
     likes = models.IntegerField(default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='post_images/')
 
 class PostsLikes(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
