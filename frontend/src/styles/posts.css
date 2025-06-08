@@ -1,94 +1,103 @@
 #optionsDiv {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+    padding: 20px 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+    border-bottom: 1px solid #ddd;
 }
 
 #optionsDiv h2 {
-  font-size: 20px;
-  color: #333;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-#optionsDiv h2:hover {
-  color: #0066cc;
+    font-size: 26px;
+    font-weight: 600;
+    color: #1a1a1a;
 }
 
 #posts {
-  max-width: 100%;
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 30px;
+    padding-right: 580px;
+    justify-content: flex-start;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: none;
+    min-height: 100vh;
+    width: calc(100% - 550px);
 }
 
 .postPostPage {
-  width: 53%;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(81, 166, 255, 0.2);
-  transition: transform 0.3s ease;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .postPostPage:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(81, 166, 255, 0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
-.postTitlePostPage {
-  font-size: 24px;
-  font-weight: bold;
-  color: #0066cc;
-  margin-bottom: 10px;
+.postImagePostPage {
+    width: 100%;
+    min-height: 300px;
+    max-height: 400px;
+    object-fit: fill  ;
+    border-radius: 12px 12px 0 0;
 }
 
 .authorNamePostPage {
-  font-size: 14px;
-  color: #888888;
-  margin-bottom: 10px;
+    font-size: 14px;
+    color: #777;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.postTitlePostPage {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0066cc;
+    text-align: center;
+    margin: 12px 20px 6px 20px;
 }
 
 .postContentPostPage {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #444444;
-  margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin: 5px 20px 15px 20px;
+    line-height: 1.6;
 }
 
 .postLikesPostPage {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 15px;
 }
 
-.heartPostPage {
-  width: 7%;
-  height: 7%;
-  cursor: pointer;
+.heartPostPage, .commentsPostPage {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-.commentsPostPage {
-  margin-left: 7%;
-  width: 7%;
-  height: 7%;
-  cursor: pointer;
+.heartPostPage:hover, .commentsPostPage:hover {
+    transform: scale(1.15);
 }
 
 #commentsSectionInvisible {
-  position: fixed;
-  margin-right: 5%;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #f0f0f0;
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px 0 0 8px;
-  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  font-weight: bold;
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 550px;
+    height: auto;
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #aaa;
+    text-align: center;
+    pointer-events: none;
 }
-

@@ -159,7 +159,7 @@
     display: block;
 }
 
-#profileForm button[type="submit"] {
+#createPost {
     background-color: #51a6ff;
     color: white;
     border: none;
@@ -171,7 +171,7 @@
     margin-top: 10px;
 }
 
-#profileForm button[type="submit"]:hover {
+#createPost:hover {
     background-color: #007bff;
     transform: scale(1.03);
 }
@@ -198,7 +198,7 @@
 #imagePreview {
     width: 100%;
     max-height: 300px;
-    object-fit: contain;
+    object-fit: fill;
     border-radius: 8px;
     margin: 10px 0;
 }

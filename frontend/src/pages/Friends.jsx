@@ -60,12 +60,12 @@ function Friends({userUsername}) {
             e.preventDefault()
             
             }}>
-         <label htmlFor='search'>Look for a user</label>
-         <input id='search' type='text' value={search} onChange={(e) => setSearch(e.target.value)}/>
-         <button id='sendRequestBtn' type='submit' onClick={(e) => {
-            e.preventDefault();
-            sendFriendRequest();
-         }}>Send friend request</button>
+            <label htmlFor='search'>Look for a user</label>
+            <input id='search' type='text' value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <button id='sendRequestBtn' type='submit' onClick={(e) => {
+                e.preventDefault();
+                sendFriendRequest();
+            }}>Send friend request</button>
          </form>
 
          <div id='friends'>
